@@ -4,17 +4,17 @@ export default function StudentTable({students}) {
 
     const studentRows = students.map(student => {
         return <tr key={student.id}>
-                <td>{student.name}</td>
-                <td>{student.surname}</td>
+                <td className='border border-solid border-black text-left p-2'>{student.name}</td>
+                <td className='border border-solid border-black text-left p-2'>{student.surname}</td>
             </tr>
     })
 
     return (
-        <table className="student-table">
+        <table className='border-collapse w-[300px]'>
             <thead>
                 <tr>
-                <th>სახელი</th>
-                <th>გვარი</th>
+                <th className='border border-solid border-black text-left p-2'>სახელი</th>
+                <th className='border border-solid border-black text-left p-2'>გვარი</th>
                 </tr>
             </thead>
             <tbody>
