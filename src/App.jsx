@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import Modal from 'react-modal';
 import './App.css'
 import Button from './components/Button/Button';
@@ -59,14 +59,14 @@ function App() {
       studentScores[id][subject] = {};
       for (const week of weeks) {
         studentScores[id][subject][week] = {};
-        // for (const day of days) {
-        //   studentScores[id][subject][week][day] = "-";
-        // }
-        studentScores[id][subject][week]["ორშაბათი"] = "1";
-        studentScores[id][subject][week]["სამშაბათი"] = "2";
-        studentScores[id][subject][week]["ოთხშაბათი"] = "3";
-        studentScores[id][subject][week]["ხუთშაბათი"] = "4";
-        studentScores[id][subject][week]["პარასკევი"] = "5";
+        for (const day of days) {
+          studentScores[id][subject][week][day] = "1";
+        }
+        // studentScores[id][subject][week]["ორშაბათი"] = "";
+        // studentScores[id][subject][week]["სამშაბათი"] = "";
+        // studentScores[id][subject][week]["ოთხშაბათი"] = "";
+        // studentScores[id][subject][week]["ხუთშაბათი"] = "";
+        // studentScores[id][subject][week]["პარასკევი"] = "";
       }
     }
     setScores(studentScores)
@@ -86,15 +86,29 @@ function App() {
       <div className='w-[80%] mx-auto'>
         <div className='flex justify-between mb-6 mt-2'>
           <div className='grid grid-cols-3 gap-2'>
-            {subjects.map(subject => <Button onClick={() => setSelectedSubject(subject)} key={subject}>{subject}</Button>)}
+            {subjects.map(subject => {
+              if (selectedSubject === subject) {
+                return <Button onClick={() => setSelectedSubject(subject)} key={subject} style={{color: '#8a2be2',backgroundColor: '#FFFFFF', borderStyle: 'solid', borderColor: '#8a2be2', borderWidth: '2px'}}>{subject}</Button>
+              } else return <Button onClick={() => setSelectedSubject(subject)} key={subject}>{subject}</Button>
+            })}
           </div>
           <div className='grid grid-cols-3 gap-2'>
-            {weeks.map(week => <Button onClick={() => setSelectedWeek(week)} key={week}>{week}</Button>)}
+            {weeks.map(week => {
+              if (selectedWeek === week) {
+                return <Button onClick={() => setSelectedWeek(week)} key={week} style={{color: '#8a2be2',backgroundColor: '#FFFFFF', borderStyle: 'solid', borderColor: '#8a2be2', borderWidth: '2px'}}>{week}</Button>
+              } else return <Button onClick={() => setSelectedWeek(week)} key={week} >{week}</Button>
+            })}
           </div>
         </div>
         <div className='flex justify-between'>
           <StudentTable students={students}/>
-          <ScoreTable scores={scores} students={students} selectedSubject={selectedSubject} selectedWeek={selectedWeek}/>
+          <ScoreTable 
+          scores={scores} 
+          students={students} 
+          selectedSubject={selectedSubject} 
+          selectedWeek={selectedWeek}
+          setScores={setScores}
+          />
         </div>
         
         <Button onClick={openModal} style={{position: 'fixed', bottom: '15px'}}>დაამატე სტუდენტი</Button>

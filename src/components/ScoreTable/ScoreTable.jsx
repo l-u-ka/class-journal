@@ -1,7 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect } from 'react';
 
-export function ScoreTable({scores, students, selectedSubject, selectedWeek}) {
+export function ScoreTable({scores, students, selectedSubject, selectedWeek, setScores}) {
     console.log("SELECTED SUBJECT: ", selectedSubject);
     console.log("SELECTED WEEK: ", selectedWeek);
 
@@ -10,6 +9,8 @@ export function ScoreTable({scores, students, selectedSubject, selectedWeek}) {
     const [scoreRows, setScoreRows] = useState([]);
 
     console.log("SCORE ROWS: ", scoreRows)
+
+    console.log("RENDERING!!!!!")
 
     function getScoretRows(subject, week) {
         console.log("CALLING SCORE ROWS FUNCTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -34,19 +35,37 @@ export function ScoreTable({scores, students, selectedSubject, selectedWeek}) {
     function changeScore(target) {
         let weekDay = target.id;
         let studentId = target.parentElement.parentElement.id;
-        console.log(studentId, selectedSubject, selectedWeek, weekDay)
-        console.log(scores[studentId][selectedSubject][selectedWeek][weekDay])
+
+    setScores(prevScores => {
+        // Create a shallow copy of the scores object
+        const newScores = { ...prevScores };
+        
+        // Check if the nested properties exist, and create them if not
+        newScores[studentId] = newScores[studentId] || {};
+        newScores[studentId][selectedSubject] = newScores[studentId][selectedSubject] || {};
+        newScores[studentId][selectedSubject][selectedWeek] = newScores[studentId][selectedSubject][selectedWeek] || {};
+        
+        // Update the score for the specific week and day
+        newScores[studentId][selectedSubject][selectedWeek][weekDay] = target.value;
+
+        return newScores;
+    });
+
+    console.log("Scores: ", scores); // This will log the old state due to the asynchronous nature of setScores
     }
 
     const renderedRows = scoreRows.map((scoreRow, index) => {
-        return <tr key={uuidv4()} id={students[index].id}>
+        return <tr key={students[index].id} id={students[index].id}>
             {weekDays.map(weekDay => {
-                return <td key={uuidv4()}  className='border border-solid border-black text-left p-2'>
-                    <input className='border-none' 
-                    value={scoreRow[weekDay]}
-                    id={weekDay}
-                    onClick={(e) => changeScore(e.target)}
-                    />
+                return <td key={`${weekDay}-${students[index].id}`}  className='border border-solid border-black text-left h-6'>
+                        <input className='border-none w-full h-full px-2'
+                        type='number'
+                        max={10}
+                        min={0} 
+                        value={scoreRow[weekDay]}
+                        id={weekDay}
+                        onChange={(e) => changeScore(e.target)}
+                        />
                     </td>
             })}
             {/* <td id="ორშაბათი" className='border border-solid border-black text-left p-2'>{scoreRow["ორშაბათი"]}</td>
