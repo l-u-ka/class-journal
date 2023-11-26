@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import './student-table.css';
 
-export default function StudentTable({students}) {
+function StudentTable({students}) {
 
     const studentRows = students.map(student => {
         return <tr key={student.id}>
@@ -23,3 +24,15 @@ export default function StudentTable({students}) {
         </table>
     )
 }
+
+StudentTable.propTypes = {
+    students: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            surname: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+};
+
+export default StudentTable;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 export function ScoreTable({scores, students, selectedSubject, selectedWeek, setScores}) {
     console.log("SELECTED SUBJECT: ", selectedSubject);
@@ -10,23 +11,18 @@ export function ScoreTable({scores, students, selectedSubject, selectedWeek, set
 
     console.log("SCORE ROWS: ", scoreRows)
 
-    console.log("RENDERING!!!!!")
-
     function getScoretRows(subject, week) {
-        console.log("CALLING SCORE ROWS FUNCTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        
-        const filered = [];
+        const stuendScoreRow = [];
         for (const student of students) {
           const studentId = student.id;
           if (scores[studentId] && scores[studentId][subject] && scores[studentId][subject][week]) {
             const score = scores[studentId][subject][week];
-            filered.push(score);
+            stuendScoreRow.push(score);
           } 
         }
-        setScoreRows(filered);
+        setScoreRows(stuendScoreRow);
       }
 
-    //   getStudentRows();
 
     useEffect(() => {
         getScoretRows(selectedSubject, selectedWeek)
@@ -68,11 +64,6 @@ export function ScoreTable({scores, students, selectedSubject, selectedWeek, set
                         />
                     </td>
             })}
-            {/* <td id="ორშაბათი" className='border border-solid border-black text-left p-2'>{scoreRow["ორშაბათი"]}</td>
-            <td id="სამშაბათი" className='border border-solid border-black text-left p-2'>{scoreRow["სამშაბათი"]}</td>
-            <td id="ოთხშაბათი" className='border border-solid border-black text-left p-2'>{scoreRow["ოთხშაბათი"]}</td>
-            <td id="ხუთშაბათი" className='border border-solid border-black text-left p-2'>{scoreRow["ხუთშაბათი"]}</td>
-            <td id="პარასკევი"className='border border-solid border-black text-left p-2'>{scoreRow["პარასკევი"]}</td> */}
         </tr>
     })
 
@@ -93,5 +84,18 @@ export function ScoreTable({scores, students, selectedSubject, selectedWeek, set
         </table>
     )
 }
+
+
+ScoreTable.propTypes = {
+    scores: PropTypes.object.isRequired,
+    students: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        })
+    ).isRequired,
+    selectedSubject: PropTypes.string.isRequired,
+    selectedWeek: PropTypes.string.isRequired,
+    setScores: PropTypes.func.isRequired,
+};
 
 export default ScoreTable;

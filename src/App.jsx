@@ -45,10 +45,6 @@ function App() {
   console.log("SCORES: ", scores);
   
 
-
-  // console.log("---------")
-  // console.log(findStudentScores(students, "ქართული", "პირველი"))
-
   function addStudent(id, name, surname) {
     const newStudent = { id, name, surname };
     setStudents([...students, newStudent]);
@@ -60,13 +56,8 @@ function App() {
       for (const week of weeks) {
         studentScores[id][subject][week] = {};
         for (const day of days) {
-          studentScores[id][subject][week][day] = "1";
+          studentScores[id][subject][week][day] = "";
         }
-        // studentScores[id][subject][week]["ორშაბათი"] = "";
-        // studentScores[id][subject][week]["სამშაბათი"] = "";
-        // studentScores[id][subject][week]["ოთხშაბათი"] = "";
-        // studentScores[id][subject][week]["ხუთშაბათი"] = "";
-        // studentScores[id][subject][week]["პარასკევი"] = "";
       }
     }
     setScores(studentScores)
