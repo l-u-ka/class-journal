@@ -25,14 +25,4 @@ function StudentTable({students}) {
     )
 }
 
-StudentTable.propTypes = {
-    students: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            surname: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-};
-
 export default StudentTable;

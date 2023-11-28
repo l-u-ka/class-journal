@@ -1,71 +1,84 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 export function ScoreTable({scores, students, selectedSubject, selectedWeek, setScores}) {
     console.log("SELECTED SUBJECT: ", selectedSubject);
     console.log("SELECTED WEEK: ", selectedWeek);
 
-    const weekDays = ["ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი"]
+    const weekDays = [{id: "111", name: "ორშაბათი"}, {id: "112", name: "სამშაბათი"}, {id: "113", name: "ოთხშაბათი"}, {id: "114", name: "ხუთშაბათი"}, {id: "115", name: "პარასკევი"}];
 
-    const [scoreRows, setScoreRows] = useState([]);
-
-    console.log("SCORE ROWS: ", scoreRows)
-
-    function getScoretRows(subject, week) {
-        const stuendScoreRow = [];
-        for (const student of students) {
-          const studentId = student.id;
-          if (scores[studentId] && scores[studentId][subject] && scores[studentId][subject][week]) {
-            const score = scores[studentId][subject][week];
-            stuendScoreRow.push(score);
-          } 
-        }
-        setScoreRows(stuendScoreRow);
-      }
-
-
-    useEffect(() => {
-        getScoretRows(selectedSubject, selectedWeek)
-      }, [scores, students, selectedSubject, selectedWeek]);
-
-    function changeScore(target) {
-        let weekDay = target.id;
+    function setScore(target) {
+        let dayId = target.parentElement.id;
         let studentId = target.parentElement.parentElement.id;
+        let selectedSubjectId = selectedSubject.id;
+        let selectedWeekId = selectedWeek.id;
+        let grade = target.value;
 
-    setScores(prevScores => {
-        // Create a shallow copy of the scores object
-        const newScores = { ...prevScores };
-        
-        // Check if the nested properties exist, and create them if not
-        newScores[studentId] = newScores[studentId] || {};
-        newScores[studentId][selectedSubject] = newScores[studentId][selectedSubject] || {};
-        newScores[studentId][selectedSubject][selectedWeek] = newScores[studentId][selectedSubject][selectedWeek] || {};
-        
-        // Update the score for the specific week and day
-        newScores[studentId][selectedSubject][selectedWeek][weekDay] = target.value;
+        const existingScoreIndex = scores.findIndex(
+            (score) =>
+                score.studentId === studentId &&
+                score.dayId === dayId &&
+                score.weekId === selectedWeekId &&
+                score.subjectId === selectedSubjectId
+        );
 
-        return newScores;
-    });
+        if (existingScoreIndex !== -1) {
+            // Update the existing score
+            const updatedScores = [...scores];
+            updatedScores[existingScoreIndex] = {
+                ...updatedScores[existingScoreIndex],
+                score: grade,
+            };
+            setScores(updatedScores);
+        } else {
+            // Add a new score
+            const newScore = {
+                id: uuidv4(),
+                score: grade,
+                studentId: studentId,
+                dayId: dayId,
+                weekId: selectedWeekId,
+                subjectId: selectedSubjectId,
+            };
 
-    console.log("Scores: ", scores); // This will log the old state due to the asynchronous nature of setScores
+            setScores((prev) => [...prev, newScore]);
     }
 
-    const renderedRows = scoreRows.map((scoreRow, index) => {
-        return <tr key={students[index].id} id={students[index].id}>
-            {weekDays.map(weekDay => {
-                return <td key={`${weekDay}-${students[index].id}`}  className='border border-solid border-black text-left h-6'>
-                        <input className='border-none w-full h-full px-2'
-                        type='number'
-                        max={10}
-                        min={0} 
-                        value={scoreRow[weekDay]}
-                        id={weekDay}
-                        onChange={(e) => changeScore(e.target)}
-                        />
-                    </td>
-            })}
-        </tr>
-    })
+    }
+
+    const studentScores = students.map((student) => {
+        return (
+            <tr key={student.id} id={student.id}>
+                {weekDays.map((weekDay) => {
+                    // Find the score for the current student, week day, and subject
+                    const score = scores.find(
+                        (s) =>
+                            (s.studentId === student.id) &&
+                            (s.dayId === weekDay.id) &&
+                            (s.weekId === selectedWeek.id) &&
+                            (s.subjectId === selectedSubject.id)
+                    );
+    
+                    return (
+                        <td
+                            key={`${weekDay.name}-${student.id}`}
+                            className='border border-solid border-black text-left h-6'
+                            id={weekDay.id}
+                        >
+                            <input
+                                className='border-none w-full h-full px-2'
+                                type='number'
+                                max={10}
+                                min={0}
+                                value={score ? score.score : ''}
+                                onChange={(e) => setScore(e.target)}
+                            />
+                        </td>
+                    );
+                })}
+            </tr>
+        );
+    });
+    
 
     return (
         <table className="w-[700px] border-collapse">
@@ -79,23 +92,11 @@ export function ScoreTable({scores, students, selectedSubject, selectedWeek, set
                 </tr>
             </thead>
             <tbody>
-                {renderedRows}
+                {studentScores}
             </tbody>
         </table>
     )
 }
 
-
-ScoreTable.propTypes = {
-    scores: PropTypes.object.isRequired,
-    students: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-        })
-    ).isRequired,
-    selectedSubject: PropTypes.string.isRequired,
-    selectedWeek: PropTypes.string.isRequired,
-    setScores: PropTypes.func.isRequired,
-};
 
 export default ScoreTable;

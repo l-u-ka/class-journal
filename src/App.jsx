@@ -6,7 +6,7 @@ import Button from './components/Button/Button';
 import StudentModal from './components/StudentModal/StudentModal';
 import StudentTable from './components/StudentTable/StudentTable';
 import ScoreTable from './components/ScoreTable/ScoreTable';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const customStyles = {
   content: {
@@ -30,13 +30,13 @@ function App() {
 
   const [students, setStudents] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [scores, setScores] = useState({});
+  const [scores, setScores] = useState([]);
 
   
 
-  const subjects = ["ქართული", "ინგლისური", "მათემატიკა"];
-  const weeks = ["პირველი", "მეორე", "მესამე"];
-  const days = ["ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი"];
+  const subjects = [{id: "001", subjectName: "ქართული"}, {id: "002", subjectName: "ინგლისური"}, {id: "003", subjectName: "მათემატიკა"}];
+  const weeks = [{id: "011", weekName: "პირველი"}, {id: "012", weekName: "მეორე"}, {id: "013", weekName: "მესამე"}];
+  
 
   const [selectedSubject, setSelectedSubject] = useState(subjects[0]);
   const [selectedWeek, setSelectedWeek] = useState(weeks[0]);
@@ -49,18 +49,18 @@ function App() {
     const newStudent = { id, name, surname };
     setStudents([...students, newStudent]);
 
-    const studentScores = {...scores};
-    studentScores[id] = {};
-    for (const subject of subjects) {
-      studentScores[id][subject] = {};
-      for (const week of weeks) {
-        studentScores[id][subject][week] = {};
-        for (const day of days) {
-          studentScores[id][subject][week][day] = "";
-        }
-      }
-    }
-    setScores(studentScores)
+    // const studentScores = {...scores};
+    // studentScores[id] = {};
+    // for (const subject of subjects) {
+    //   studentScores[id][subject] = {};
+    //   for (const week of weeks) {
+    //     studentScores[id][subject][week] = {};
+    //     for (const day of days) {
+    //       studentScores[id][subject][week][day] = "";
+    //     }
+    //   }
+    // }
+    // setScores(studentScores)
     closeModal();
   }
 
@@ -78,16 +78,16 @@ function App() {
         <div className='flex justify-between mb-6 mt-2'>
           <div className='grid grid-cols-3 gap-2'>
             {subjects.map(subject => {
-              if (selectedSubject === subject) {
-                return <Button onClick={() => setSelectedSubject(subject)} key={subject} style={{color: '#8a2be2',backgroundColor: '#FFFFFF', borderStyle: 'solid', borderColor: '#8a2be2', borderWidth: '2px'}}>{subject}</Button>
-              } else return <Button onClick={() => setSelectedSubject(subject)} key={subject}>{subject}</Button>
+              if (selectedSubject.id === subject.id) {
+                return <Button onClick={() => setSelectedSubject(subject)} key={subject.id} style={{color: '#8a2be2',backgroundColor: '#FFFFFF', borderStyle: 'solid', borderColor: '#8a2be2', borderWidth: '2px'}}>{subject.subjectName}</Button>
+              } else return <Button onClick={() => setSelectedSubject(subject)} key={subject.id}>{subject.subjectName}</Button>
             })}
           </div>
           <div className='grid grid-cols-3 gap-2'>
             {weeks.map(week => {
-              if (selectedWeek === week) {
-                return <Button onClick={() => setSelectedWeek(week)} key={week} style={{color: '#8a2be2',backgroundColor: '#FFFFFF', borderStyle: 'solid', borderColor: '#8a2be2', borderWidth: '2px'}}>{week}</Button>
-              } else return <Button onClick={() => setSelectedWeek(week)} key={week} >{week}</Button>
+              if (selectedWeek.id === week.id) {
+                return <Button onClick={() => setSelectedWeek(week)} key={week.id} style={{color: '#8a2be2',backgroundColor: '#FFFFFF', borderStyle: 'solid', borderColor: '#8a2be2', borderWidth: '2px'}}>{week.weekName}</Button>
+              } else return <Button onClick={() => setSelectedWeek(week)} key={week.id} >{week.weekName}</Button>
             })}
           </div>
         </div>
