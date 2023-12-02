@@ -1,7 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import ScoreRow from './ScoreRow/ScoreRow';
+import { useContext } from 'react';
+import { GlobalContext } from '../../Context/GlobalContext';
 
-export function ScoreTable({scores, students, selectedSubject, selectedWeek, setScores}) {
+export function ScoreTable() {
+    const {scores, students, selectedSubject, selectedWeek, setScores} = useContext(GlobalContext)
     console.log("SELECTED SUBJECT: ", selectedSubject);
     console.log("SELECTED WEEK: ", selectedWeek);
 

@@ -1,11 +1,21 @@
 import { useState } from "react"
 import './student-modal.css';
-import Button from "../Button/Button";
+import Button from "../Buttons/Button/Button";
+import { useContext } from "react";
+import { GlobalContext } from "../../Context/GlobalContext";
 
-export default function StudentModal({addStudent}) {
+export default function StudentModal({closeModal}) {
     const [studentName, setStudentName] = useState('');
     const [studentSurname, setStudentSurname] = useState('');
     const [studentId, setStudentId] = useState('');
+
+    const {setStudents} = useContext(GlobalContext)
+
+    function addStudent(id, name, surname) {
+        const newStudent = { id, name, surname };
+        setStudents(prev => [...prev, newStudent]);
+        closeModal();
+      }
 
     return (
         <div className="w-[350px] p-2 border-[3px] border-black border-solid">

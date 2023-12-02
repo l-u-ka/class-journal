@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
 import './student-table.css';
+import { useContext } from 'react';
+import { GlobalContext } from '../../Context/GlobalContext';
 
-function StudentTable({students}) {
+function StudentTable() {
+    const {students} = useContext(GlobalContext)
 
     const studentRows = students.map(student => {
         return <tr key={student.id}>
