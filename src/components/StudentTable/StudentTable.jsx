@@ -1,4 +1,3 @@
-import './student-table.css';
 import { useContext } from 'react';
 import { GlobalContext } from '../../Context/GlobalContext';
 

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import './student-modal.css';
 import Button from "../Buttons/Button/Button";
 import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalContext";

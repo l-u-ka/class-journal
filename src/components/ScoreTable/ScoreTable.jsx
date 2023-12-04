@@ -1,47 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import ScoreRow from './ScoreRow/ScoreRow';
 import { useContext } from 'react';
 import { GlobalContext } from '../../Context/GlobalContext';
 
 export function ScoreTable() {
-    const {scores, students, selectedSubject, selectedWeek, setScores} = useContext(GlobalContext)
+    const {scores, students, selectedSubject, selectedWeek} = useContext(GlobalContext)
     console.log("SELECTED SUBJECT: ", selectedSubject);
     console.log("SELECTED WEEK: ", selectedWeek);
-
-    function setScore(target) {
-        let dayId = target.parentElement.id;
-        let studentId = target.parentElement.parentElement.id;
-        let selectedSubjectId = selectedSubject.id;
-        let selectedWeekId = selectedWeek.id;
-        let grade = target.value;
-
-        const existingScoreIndex = scores.findIndex((score) => {
-                return score.studentId === studentId && score.dayId === dayId && score.weekId === selectedWeekId && score.subjectId === selectedSubjectId
-            }
-        );
-
-        if (existingScoreIndex !== -1) {
-            // Update the existing score
-            const updatedScores = [...scores];
-            updatedScores[existingScoreIndex] = {
-                ...updatedScores[existingScoreIndex],
-                score: grade,
-            };
-            setScores(updatedScores);
-        } else {
-            // Add a new score
-            const newScore = {
-                id: uuidv4(),
-                score: grade,
-                studentId: studentId,
-                dayId: dayId,
-                weekId: selectedWeekId,
-                subjectId: selectedSubjectId,
-            };
-
-            setScores((prev) => [...prev, newScore]);
-        }
-    }
 
     const studentScores = students.map((student) => {
         return (
@@ -51,7 +15,6 @@ export function ScoreTable() {
              scores={scores}
              selectedSubject={selectedSubject}
              selectedWeek={selectedWeek}
-             setScore={setScore}
              />
         );
     });

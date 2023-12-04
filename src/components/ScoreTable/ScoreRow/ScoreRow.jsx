@@ -1,6 +1,6 @@
 import ScoreCell from "./ScoreCell/ScoreCell";
 
-export default function ScoreRow({student, scores, selectedSubject, selectedWeek, setScore}) {
+export default function ScoreRow({student, scores, selectedSubject, selectedWeek}) {
 
     const weekDays = [{id: "111", name: "ორშაბათი"}, {id: "112", name: "სამშაბათი"}, {id: "113", name: "ოთხშაბათი"}, {id: "114", name: "ხუთშაბათი"}, {id: "115", name: "პარასკევი"}];
 
@@ -21,8 +21,8 @@ export default function ScoreRow({student, scores, selectedSubject, selectedWeek
                             key={`${weekDay.name}-${student.id}`}
                             weekDay={weekDay}
                             score={score}
-                            setScore={setScore}
-                            />
+                            student={student}
+                        />
                     );
                 })}
             </tr>

@@ -1,5 +1,3 @@
-import './button.css';
-import PropTypes from 'prop-types';
 
 function Button({children, type="button", onClick, style}) {
     const buttonStyle = style ?? {};

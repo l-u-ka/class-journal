@@ -1,6 +1,5 @@
 import React from 'react'
 import Modal from 'react-modal';
-import './App.css'
 import Button from './components/Buttons/Button/Button';
 import Buttons from './components/Buttons/Buttons';
 import StudentModal from './components/StudentModal/StudentModal';
