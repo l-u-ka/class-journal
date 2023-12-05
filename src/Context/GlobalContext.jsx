@@ -20,9 +20,7 @@ export const GlobalContextProvider = ({ children }) => {
     const [scores, setScores] = useState([]);
     const [selectedSubject, setSelectedSubject] = useState(subjects[0]);
     const [selectedWeek, setSelectedWeek] = useState(weeks[0]);
-    // const [subjects, setSubjects] = useState(initial_subjects);
-    // const [weeks, setWeeeks] = useState(initial_weeks);
-
+    
     return (
       <GlobalContext.Provider value={{students, setStudents, scores, setScores, selectedSubject, setSelectedSubject, selectedWeek, setSelectedWeek, subjects, weeks}}>
         {children}

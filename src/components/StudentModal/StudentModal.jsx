@@ -1,8 +1,7 @@
 import { useState } from "react"
-import Button from "../Buttons/Button/Button";
 import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalContext";
-
+import Button from "../Buttons/Button/Button";
 export default function StudentModal({closeModal}) {
     const [studentName, setStudentName] = useState('');
     const [studentSurname, setStudentSurname] = useState('');

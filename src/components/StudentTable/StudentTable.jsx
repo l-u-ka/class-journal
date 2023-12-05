@@ -2,8 +2,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../Context/GlobalContext';
 
 function StudentTable() {
-    const {students} = useContext(GlobalContext)
-
+    const {students} = useContext(GlobalContext);
     const studentRows = students.map(student => {
         return <tr key={student.id}>
                 <td className='border border-solid border-black text-left p-2'>{student.name}</td>

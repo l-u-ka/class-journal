@@ -48,8 +48,6 @@ export default function ScoreCell({weekDay, score, student}) {
     function validateInput() {
         console.log(Number(scoreInput))
         console.log(scoreInput)
-        // if (scoreInput && (Number(scoreInput)) <= 10 && (Number(scoreInput) >=0)) return true
-        // else return false;
         setInputError('');
         if (scoreInput) {
             if (scoreInput < 0) {
@@ -92,7 +90,7 @@ export default function ScoreCell({weekDay, score, student}) {
                     type='number'
                     max={10}
                     min={0}
-                    value={scoreInput} //score ? score.score : ''
+                    value={scoreInput}
                     onChange={(e) => setScoreInput(e.target.value)}
                 />
                 <Button onClick={() => handleClick()} style={{position:'absolute', right:0, height:'100%', width:'35%', padding:0, borderRadius:'5px'}}>Click</Button>

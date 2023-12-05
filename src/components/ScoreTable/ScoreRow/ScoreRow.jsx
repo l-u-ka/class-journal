@@ -8,7 +8,7 @@ export default function ScoreRow({student, scores, selectedSubject, selectedWeek
         <tr key={student.id} id={student.id}>
                 {weekDays.map((weekDay) => {
                     // Find the score for the current student, week day, and subject
-                    const score = scores.find(
+                    const score = scores?.find(
                         (s) =>
                             (s.studentId === student.id) &&
                             (s.dayId === weekDay.id) &&
