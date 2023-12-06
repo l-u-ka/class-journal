@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import { GlobalContext } from "../../Context/GlobalContext"
-import SumScoreRow from "./SumScoreRow/SumScoreRow";
+import AverageScoreRow from "./AverageScoreRow/AverageScoreRow";
 
-export default function SumScoreTable() {
+export default function AverageScoreTable() {
 
   const {subjects, students} = useContext(GlobalContext);
-  const sumRows = students.map(student => <SumScoreRow key={student.id} student={student}/>)
+  const sumRows = students.map(student => <AverageScoreRow key={student.id} student={student}/>)
 
   return (
     <table className="w-[800px] border-collapse">

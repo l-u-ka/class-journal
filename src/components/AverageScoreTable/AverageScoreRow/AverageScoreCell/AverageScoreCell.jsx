@@ -1,4 +1,4 @@
-export default function SumScoreCell({subject, studentScores}) {
+export default function AverageScoreCell({subject, studentScores}) {
   const studentSubjectScores = studentScores.filter(studentScore => studentScore.subjectId === subject.id)
   let sum = 0;
   for (let i=0; i<studentSubjectScores.length; i++) {

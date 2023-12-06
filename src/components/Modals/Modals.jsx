@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { useState } from 'react';
 import StudentForm from '../StudentForm/StudentForm';
 import Button from '../Buttons/Button/Button';
-import SumScoreTable from '../ScoreSumTable/SumScoreTable';
+import AverageScoreTable from '../AverageScoreTable/AverageScoreTable';
 
 const customStyles = {
     content: {
@@ -44,7 +44,7 @@ export default function Modals() {
         </Modal>
         <Button onClick={openScoreModal} style={{position: 'fixed', bottom:'15px', left: '80%'}}>საშუალო ქულები</Button>
         <Modal isOpen={scoreModalIsOpen} onRequestClose={closeScoreModal} style={customStyles} contentLabel="Student Modal">
-            <SumScoreTable/>
+            <AverageScoreTable/>
         </Modal>
     </>
   )

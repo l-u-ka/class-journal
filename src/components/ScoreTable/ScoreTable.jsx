@@ -17,7 +17,6 @@ export function ScoreTable() {
         );
     });
     
-
     return (
         <table className="w-[700px] border-collapse">
             <thead>

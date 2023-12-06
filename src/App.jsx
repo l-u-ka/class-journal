@@ -4,7 +4,6 @@ import ScoreTable from './components/ScoreTable/ScoreTable';
 import { GlobalContextProvider } from './Context/GlobalContext';
 import Modals from './components/Modals/Modals';
 
-
 function App() {
   return (
     <GlobalContextProvider>

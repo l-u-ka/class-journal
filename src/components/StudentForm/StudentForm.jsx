@@ -12,8 +12,6 @@ export default function StudentForm({closeModal}) {
 
     function isError() {
         const regex = /^(?:(?![\d!@#$%^&*()_+{}[\]:;<>,.?~\\/\\-\s]).)*$/; // not include number, special character or whitespace
-        // if (studentName && studentSurname && studentId && regex.test(studentName) && regex.test(studentSurname)) return true;
-        // else return false;
         let error = '';
         if (!(studentName && studentSurname && studentId)) {
             error = "შეიყვანეთ ყველა მონაცემი!";

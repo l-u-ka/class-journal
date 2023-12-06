@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { GlobalContext } from '../../Context/GlobalContext';
 
-function StudentTable() {
+export default function StudentTable() {
     const {students} = useContext(GlobalContext);
     const studentRows = students.map(student => {
         return <tr key={student.id}>
@@ -24,5 +24,3 @@ function StudentTable() {
         </table>
     )
 }
-
-export default StudentTable;
