@@ -4,8 +4,8 @@ import { GlobalContext } from '../../Context/GlobalContext';
 
 export function ScoreTable() {
     const {scores, students, selectedSubject, selectedWeek} = useContext(GlobalContext)
-    console.log("SELECTED SUBJECT: ", selectedSubject);
-    console.log("SELECTED WEEK: ", selectedWeek);
+    
+    const weekDays = [{id: "111", name: "ორშაბათი"}, {id: "112", name: "სამშაბათი"}, {id: "113", name: "ოთხშაბათი"}, {id: "114", name: "ხუთშაბათი"}, {id: "115", name: "პარასკევი"}]
 
     const studentScores = students.map((student) => {
         return (
@@ -15,6 +15,7 @@ export function ScoreTable() {
              scores={scores}
              selectedSubject={selectedSubject}
              selectedWeek={selectedWeek}
+             weekDays={weekDays}
              />
         );
     });
@@ -24,11 +25,7 @@ export function ScoreTable() {
         <table className="w-[700px] border-collapse">
             <thead>
                 <tr>
-                    <th className='border border-solid border-black text-left p-2'>ორშაბათი</th>
-                    <th className='border border-solid border-black text-left p-2'>სამშაბათი</th>
-                    <th className='border border-solid border-black text-left p-2'>ოთხშაბათი</th>
-                    <th className='border border-solid border-black text-left p-2'>ხუთშაბათი</th>
-                    <th className='border border-solid border-black text-left p-2'>პარასკევი</th>
+                    {weekDays.map(weekday => <th key={weekday.id} className='border border-solid border-black text-left p-2'>{weekday.name}</th> )}
                 </tr>
             </thead>
             <tbody>

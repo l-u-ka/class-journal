@@ -6,6 +6,7 @@ import StudentModal from './components/StudentModal/StudentModal';
 import StudentTable from './components/StudentTable/StudentTable';
 import ScoreTable from './components/ScoreTable/ScoreTable';
 import { GlobalContextProvider } from './Context/GlobalContext';
+import SumScoreTable from './components/ScoreSumTable/ScoreSumTable';
 
 const customStyles = {
   content: {
@@ -23,13 +24,21 @@ Modal.setAppElement('#root');
 
 
 function App() {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  
-  function openModal() {
-    setIsOpen(true);
+  const [studentModalIsOpen, setStudentModalIsOpen] = React.useState(false);
+  const [scoreModalIsOpen, setScoreModalIsOpen] = React.useState(false);
+
+  function openStudentModal() {
+    setStudentModalIsOpen(true);
   }
-  function closeModal() {
-    setIsOpen(false);
+  function closeStudentModal() {
+    setStudentModalIsOpen(false);
+  }
+
+  function openScoreModal() {
+    setScoreModalIsOpen(true);
+  }
+  function closeScoreModal() {
+    setScoreModalIsOpen(false);
   }
 
   return (
@@ -41,9 +50,13 @@ function App() {
               <StudentTable/>
               <ScoreTable />
             </div>
-            <Button onClick={openModal} style={{position: 'fixed', bottom: '15px'}}>დაამატე სტუდენტი</Button>
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Student Modal">
-              <StudentModal closeModal={closeModal}/>
+            <Button onClick={openStudentModal} style={{position: 'fixed', bottom: '15px'}}>დაამატე სტუდენტი</Button>
+            <Modal isOpen={studentModalIsOpen} onRequestClose={closeStudentModal} style={customStyles} contentLabel="Student Modal">
+              <StudentModal closeModal={closeStudentModal}/>
+            </Modal>
+            <Button onClick={openScoreModal} style={{position: 'fixed', bottom:'15px', left: '80%'}}>საბოლოო ქულები</Button>
+            <Modal isOpen={scoreModalIsOpen} onRequestClose={closeScoreModal} style={customStyles} contentLabel="Student Modal">
+              <SumScoreTable/>
             </Modal>
           </div>
         </div>

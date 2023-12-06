@@ -10,7 +10,6 @@ export default function ScoreCell({weekDay, score, student}) {
     const [inputError, setInputError] = useState('')
     const {selectedWeek, selectedSubject, setScores, scores} = useContext(GlobalContext)
     
-    console.log(score, " : score")
     function setScore() {
         let dayId = weekDay.id;
         let studentId = student.id;
@@ -46,8 +45,6 @@ export default function ScoreCell({weekDay, score, student}) {
     }
 
     function validateInput() {
-        console.log(Number(scoreInput))
-        console.log(scoreInput)
         setInputError('');
         if (scoreInput) {
             if (scoreInput < 0) {
@@ -64,7 +61,6 @@ export default function ScoreCell({weekDay, score, student}) {
         }
         return false;
     }
-    console.log(!inputError)
 
     function handleClick() {
         if (validateInput()) {
@@ -76,6 +72,7 @@ export default function ScoreCell({weekDay, score, student}) {
     useEffect(()=> {
         setIsEditing(false)
         setInputError('')
+        setScoreInput('')
     }, [selectedWeek, selectedSubject])
 
     return (
