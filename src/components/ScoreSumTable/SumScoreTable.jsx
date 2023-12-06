@@ -11,8 +11,8 @@ export default function SumScoreTable() {
     <table className="w-[800px] border-collapse">
             <thead>
                 <tr>
-                    <th className='border border-solid border-black text-left p-2'>მოსწავლე</th>
-                    {subjects.map(subject => <th key={subject.id} className='border border-solid border-black text-left p-2'>{subject.subjectName}</th>)}
+                    <th className='border border-solid border-black text-center p-2'>მოსწავლე</th>
+                    {subjects.map(subject => <th key={subject.id} className='border border-solid border-black text-center p-2'>{subject.subjectName}</th>)}
                 </tr>
             </thead>
             <tbody>

@@ -2,17 +2,37 @@ import { useState } from "react"
 import { useContext } from "react";
 import { GlobalContext } from "../../Context/GlobalContext";
 import Button from "../Buttons/Button/Button";
-export default function StudentModal({closeModal}) {
+export default function StudentForm({closeModal}) {
     const [studentName, setStudentName] = useState('');
     const [studentSurname, setStudentSurname] = useState('');
     const [studentId, setStudentId] = useState('');
+    const [error, setError] = useState('');
 
     const {setStudents} = useContext(GlobalContext)
 
+    function isError() {
+        const regex = /^(?:(?![\d!@#$%^&*()_+{}[\]:;<>,.?~\\/\\-\s]).)*$/; // not include number, special character or whitespace
+        // if (studentName && studentSurname && studentId && regex.test(studentName) && regex.test(studentSurname)) return true;
+        // else return false;
+        let error = '';
+        if (!(studentName && studentSurname && studentId)) {
+            error = "შეიყვანეთ ყველა მონაცემი!";
+        } else if (!(regex.test(studentName) && regex.test(studentSurname))) {
+            error = "სახელი და გვარი არ უნდა შეიცავდეს ნომერს, გამოტოვებულ ადგილს ან სიმბოლოს!";
+        }
+        return error;
+    }
+
     function addStudent(id, name, surname) {
-        const newStudent = { id, name, surname };
-        setStudents(prev => [...prev, newStudent]);
-        closeModal();
+        if (!isError()) {
+            setError('')
+            const newStudent = { id, name, surname };
+            setStudents(prev => [...prev, newStudent]);
+            closeModal();
+            setStudentName('');
+            setStudentSurname('');
+            setStudentId('');
+        } else setError(isError())
       }
 
     return (
@@ -25,10 +45,8 @@ export default function StudentModal({closeModal}) {
                 <Button type="submit" onClick={e => {
                     e.preventDefault();
                     addStudent(studentId, studentName, studentSurname);
-                    setStudentName('');
-                    setStudentSurname('');
-                    setStudentId('');
-                }}>დაამატე</Button>   
+                }}>დაამატე</Button>
+                {error && <p className="text-red-600 text-center mt-2">{error}</p>}   
             </form>
         </div>
     )

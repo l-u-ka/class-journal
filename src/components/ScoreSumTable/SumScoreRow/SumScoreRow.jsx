@@ -9,7 +9,7 @@ export default function SumScoreRow({student}) {
 
   return (
     <tr>
-        <td className='border border-solid border-black text-left p-2'>{student.name}</td>
+        <td className='border border-solid border-black text-center p-2'>{student.name + " " + student.surname}</td>
         {subjects.map(subject => <SumScoreCell key={`${student.id}-${subject.id}`} subject={subject} studentScores={studentScores}/>)}
     </tr>
   )

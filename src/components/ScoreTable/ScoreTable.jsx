@@ -3,9 +3,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../../Context/GlobalContext';
 
 export function ScoreTable() {
-    const {scores, students, selectedSubject, selectedWeek} = useContext(GlobalContext)
-    
-    const weekDays = [{id: "111", name: "ორშაბათი"}, {id: "112", name: "სამშაბათი"}, {id: "113", name: "ოთხშაბათი"}, {id: "114", name: "ხუთშაბათი"}, {id: "115", name: "პარასკევი"}]
+    const {scores, students, selectedSubject, selectedWeek, weekDays} = useContext(GlobalContext)
 
     const studentScores = students.map((student) => {
         return (
@@ -15,7 +13,6 @@ export function ScoreTable() {
              scores={scores}
              selectedSubject={selectedSubject}
              selectedWeek={selectedWeek}
-             weekDays={weekDays}
              />
         );
     });

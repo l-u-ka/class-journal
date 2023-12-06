@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import ScoreCell from "./ScoreCell/ScoreCell";
+import { GlobalContext } from "../../../Context/GlobalContext";
 
-export default function ScoreRow({student, scores, selectedSubject, selectedWeek, weekDays}) {
+export default function ScoreRow({student, scores, selectedSubject, selectedWeek}) {
     
+    const {weekDays} = useContext(GlobalContext);
+
     return (
         <tr id={student.id}>
                 {weekDays.map((weekDay) => {
